@@ -32,7 +32,13 @@
             '0', 'X', '0', 'X', '0';
             '0', '0', '0', '0', 'E'];
         
+    nodeIDs = [  0,  1,  2,  3,  4;
+                 5,  6,  7,  8,  9;
+                10, 11, 12, 13, 14;
+                15, 16, 17, 18, 19;
+                20, 21, 22, 23, 24];
+        
     startNode = [0, 0];
     endNode = [4, 4];
     
-    result = astar(startNode, endNode, map);
+    result = astar(startNode, endNode, map, nodeIDs);
