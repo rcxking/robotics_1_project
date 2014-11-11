@@ -1,0 +1,12 @@
+A* Notes
+--------
+
+You need the correct JDK for MATLAB.  This can be found by typing "version -java" on the MATLAB command prompt.
+
+Compile the .java file with "javac <name>.java"
+
+In MATLAB, add the location of the resulting .class file with:
+
+javaaddpath(<location to .class file>)
+
+Now the class can be used!
