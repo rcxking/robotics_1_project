@@ -5,11 +5,12 @@ public class AStarTest {
 	public static void printCurrentState(Vector<Vector<String>> state) {
 		
 		for(int i = 0; i < state.size(); i++) {
-			for(int j = 0; j < state.get(i).size(); j++) {
+			for(int j = 0; j < state.get(0).size(); j++) {
 				System.out.print(state.get(i).get(j));
 			}
 			System.out.println();
 		}
+		System.out.println();
 	}
 	
 	public static void main(String[] args) {
@@ -88,6 +89,10 @@ public class AStarTest {
 		System.out.println("The current map is: ");
 		printCurrentState(map);
 		
+		// Run the A* Algorithm:
+		AStar aStar = new AStar(map);
+		aStar.AStarAlgorithm();
 		
+		System.out.println("A* Algorithm Completed!");
 	} // End function main()
 }

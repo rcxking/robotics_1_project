@@ -33,5 +33,19 @@ public class State {
 		stepsToState_ = stepsToState;
 	} // End Constructor State()
 	
+	public int getNumMoves() {
+		return numMoves_;
+	}
 	
+	public Vector<Vector<String>> getCurrentState() {
+		return current_;
+	}
+	
+	public Vector<Vector<String>> getPrevious() {
+		return previous_;
+	}
+	
+	public Vector<Vector<Vector<String>>> getStepsToState() {
+		return stepsToState_;
+	}
 } // End class State.java
