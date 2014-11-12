@@ -86,8 +86,8 @@ public class AStarTest {
 		map.addElement(row4);
 		map.addElement(row5);
 		
-		System.out.println("The current map is: ");
-		printCurrentState(map);
+		//System.out.println("The current map is: ");
+		//printCurrentState(map);
 		
 		// Run the A* Algorithm:
 		AStar aStar = new AStar(map);

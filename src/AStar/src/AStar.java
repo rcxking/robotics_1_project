@@ -7,7 +7,7 @@
  * CSCI-4480
  * 11/10/14
  * 
- * Last Updated: 11/11/14 - 2:30 PM
+ * Last Updated: 11/11/14 - 7:44 PM
  */
 
 // Data Structures:
@@ -31,7 +31,7 @@ public class AStar {
 	private Vector<Vector<Vector<String>>> exploredBoards;
 	private Vector<Vector<Vector<String>>> stepsToHere;
 	private PriorityQueue<State> pq;
-	//private Vector<Vector<Vector<String>>> endState;
+	private Vector<Vector<String>> endState;
 	private Vector<Vector<String>> startBoard;
 	
 	private int desX;
@@ -59,32 +59,36 @@ public class AStar {
 		exploredBoards = new Vector<Vector<Vector<String>>>();
 		stepsToHere = new Vector<Vector<Vector<String>>>();
 		pq = new PriorityQueue<State>(10, stateComparator);
-		startBoard = startingBoard;
+		startBoard = new Vector<Vector<String>>();
+		endState = new Vector<Vector<String>>();
 		
-		// Find the coordinates of the ending location and replace the "S" with a "C":
-		for(int i = 0; i < startBoard.size(); i++) {
-			for(int j = 0; j < startBoard.get(0).size(); j++) {
-				
-				// We found the "S"!
-				if(startBoard.get(i).get(j).equalsIgnoreCase("S")) {
-					startBoard.get(i).set(j, "C");
+		for(int i = 0; i < startingBoard.size(); i++) {
+			
+			Vector<String> startRow = new Vector<String>(startingBoard.get(0).size());
+			Vector<String> endRow = new Vector<String>(startingBoard.get(0).size());
+			
+			for(int j = 0; j < startingBoard.get(0).size(); j++) {
+							
+				if(startingBoard.get(i).get(j).equalsIgnoreCase("S")) {
+					startRow.add("C");
+					endRow.add("0");
+				} else if(startingBoard.get(i).get(j).equalsIgnoreCase("E")) {
+					startRow.add("0");
+					endRow.add("C");
+				} else {
+					startRow.add(startingBoard.get(i).get(j));
+					endRow.add(startingBoard.get(i).get(j));
 				}
-				
-				// We found the "E"!
-				if(startBoard.get(i).get(j).equalsIgnoreCase("E")) {
-					// Set the desX and desY member variables:
-					desX = j;
-					desY = i;
-					
-					// Remove the "E":
-					startBoard.get(i).set(j, "0");
-					break;
-				}
-			}
-		}
+			} // End for
+			
+			startBoard.add(startRow);
+			endState.add(endRow);
+		} // End for
 		
 		System.out.println("The Starting Board is:");
+		printBoard(startingBoard);
 		printBoard(startBoard);
+		printBoard(endState);
 		System.out.println("The Ending Location is at: (" + desX + "," + desY + ")");
 		System.out.println("The starting Manhattan Distance is: " + calculateManhattanDistance(startBoard));
 		System.out.println("AStar Constructor Successfully Completed!");
@@ -128,57 +132,52 @@ public class AStar {
 		System.out.println();
 	}
 	
+	// This function compares whether two boards are the same:
+	public boolean areBoardsSame(Vector<Vector<String>> board1, Vector<Vector<String>> board2) {
+		
+		for(int i = 0; i < board1.size(); i++) {
+			for(int j = 0; j < board1.get(0).size(); j++) {
+				if(!(board1.get(i).get(j).equalsIgnoreCase(board2.get(i).get(j)))) {
+					return false;
+				}
+			}
+		}
+		return true;
+		
+	} // End function areBoardsSame()
+	
+	// This function returns a list of all the possible moves in a given state:
+	public Vector<Vector<Vector<String>>> possibleMoves(State currentState) {
+		
+		// Vector of possible moves:
+		Vector<Vector<Vector<String>>> moves = new Vector<Vector<Vector<String>>>();
+		
+		// Find the current X and Y location:
+		int currentXLoc, currentYLoc;
+		currentXLoc = currentYLoc = 0;
+		
+		for(int i = 0; i < currentState.getCurrentState().size(); i++) {
+			for(int j = 0; j < currentState.getCurrentState().get(i).size(); j++) {
+				
+				if(currentState.getCurrentState().get(i).get(j).equalsIgnoreCase("C")) {
+					// We found the current location!
+					
+					currentXLoc = j;
+					currentYLoc = i;
+					
+					break;
+				} // End if
+			} // End for
+		} // End for
+		
+		// DEBUG ONLY - Print out the value of the current position:
+		
+		
+		return moves;
+	} // End for
+	
 	public void AStarAlgorithm() {
 		
-		/*
-		// DEBUG ONLY - Testing Priority Queue:
-		Vector<Vector<String>> map = new Vector<Vector<String>>(5);
-		Vector<String> row1 = new Vector<String>(5);
-		row1.addElement("0");
-		row1.addElement("X");
-		row1.addElement("X");
-		row1.addElement("0");
-		row1.addElement("0");
-		
-		Vector<String> row2 = new Vector<String>(5);
-		row2.addElement("0");
-		row2.addElement("0");
-		row2.addElement("0");
-		row2.addElement("0");
-		row2.addElement("0");
-		
-		Vector<String> row3 = new Vector<String>(5);
-		row3.addElement("0");
-		row3.addElement("0");
-		row3.addElement("0");
-		row3.addElement("X");
-		row3.addElement("0");
-		
-		Vector<String> row4 = new Vector<String>(5);
-		row4.addElement("0");
-		row4.addElement("X");
-		row4.addElement("0");
-		row4.addElement("X");
-		row4.addElement("0");
-		
-		Vector<String> row5 = new Vector<String>(5);
-		row5.addElement("0");
-		row5.addElement("0");
-		row5.addElement("0");
-		row5.addElement("0");
-		row5.addElement("C");
-		
-		map.addElement(row1);
-		map.addElement(row2);
-		map.addElement(row3);
-		map.addElement(row4);
-		map.addElement(row5);
-		
-		//State s1 = new State(startBoard, 0, null, null);
-		//State s2 = new State(map, 0, null, null);
-		//pq.add(s1);
-		//pq.add(s2);
-		 * */
 		stepsToHere.addElement(startBoard);
 		// Create the initial state:
 		State initialState = new State(startBoard, 0, null, stepsToHere);
@@ -187,20 +186,31 @@ public class AStar {
 		// Begin the A* Algorithm:  
 		while(!pq.isEmpty()) {
 			
-			// Get the next state to process:
+			// Get the next state to process and remove it from the priority queue:
 			State nextState = pq.poll();
 			
 			System.out.println("The nextState is: ");
 			printBoard(nextState.getCurrentState());
 			exploredBoards.addElement(nextState.getCurrentState());
 			
-		
-			/*
+			if(areBoardsSame(nextState.getCurrentState(), endState)) {
+				// We reached the goal!
+				
+				System.out.println("We reached the goal state!");
+				
+				for(int i = 0; i < nextState.getStepsToState().size(); i++) {
+					printBoard(nextState.getStepsToState().get(i));
+				}
+				
+				System.out.println("Number of steps from start to finish: " + nextState.getNumMoves());
+				break;
+			}
+			
 			if(pq.isEmpty()) {
 				System.err.println("No Solution Found!");
 				break;
 			}
-			*/
+			
 		}
 	} // End function AStarAlgorithm()
 	
