@@ -1,0 +1,12 @@
+close all; clear all; clc;
+
+[obs, start, stop] = mapGeneration(imread('2014-10-18 21.10.18.jpg'),[100, 100]);
+
+imshow(obs)
+
+
+smallSize = [10 10];
+
+obsSmall = imresize(obs, smallSize);
+startSmall = round(start*smallSize(1)/size(obs,1));
+stopSamll = round(start*smallSize(2)/size(obs,2));
