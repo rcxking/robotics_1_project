@@ -83,8 +83,19 @@ public class AStarTest {
 		//System.out.println("The current map is: ");
 		//printCurrentState(map);
 		
+		String[][] newMap = {
+				{"S", "0", "0"},
+				{"0", "X", "0"},
+				{"0", "0", "E"}
+		};
+		
+		ArrayToVector atv = new ArrayToVector(newMap);
+		Vector<Vector<String>> realMap = atv.convertArray();
+		System.out.println("realMap is: " + realMap);
+	
+		
 		// Run the A* Algorithm:
-		AStar aStar = new AStar(map);
+		AStar aStar = new AStar(realMap);
 		aStar.AStarAlgorithm();
 		
 		System.out.println("A* Algorithm Completed!");
