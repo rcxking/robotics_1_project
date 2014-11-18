@@ -385,7 +385,10 @@ public class AStar {
 		return moves;
 	} // End for
 	
-	public void AStarAlgorithm() {
+	public int[][] AStarAlgorithm() {
+		
+		// This Array will hold the points to navigate to in (row, col):
+		int[][] solution;
 		
 		stepsToHere.addElement(startBoard);
 		
@@ -425,7 +428,36 @@ public class AStar {
 				System.out.println("Size of getStepsToState: " + nextState.getStepsToState().size());
 				
 				System.out.println("Number of steps from start to finish: " + nextState.getNumMoves());
-				break;
+				
+				solution = new int[nextState.getStepsToState().size()][2];
+				
+				// Give the coordinates to move to in (row, col) form:
+				for(int i = 0; i < nextState.getStepsToState().size(); i++) {
+					
+					Vector<Vector<String>> nextStateBoard = nextState.getStepsToState().get(i);
+					
+					int[] coordinate = new int[2];
+					
+					for(int j = 0; j < nextStateBoard.size(); j++) {
+						for(int k = 0; k < nextStateBoard.get(j).size(); k++) {
+							
+							if(nextStateBoard.get(j).get(k).equalsIgnoreCase("C")) {
+								
+								coordinate[0] = j;
+								coordinate[1] = k;
+								
+								
+								
+								break;
+							}
+						} // End for
+					} // End for
+					
+					solution[i] = coordinate;
+					
+				} // End for
+				
+				return solution;
 			}
 			
 			// Find all possible moves that we can make:
@@ -455,10 +487,12 @@ public class AStar {
 			
 			if(pq.isEmpty()) {
 				System.err.println("No Solution Found!");
-				break;
+				return null;
 			}
 			
 		}
+		
+		return null;
 	} // End function AStarAlgorithm()
 	
 } // End class AStar()

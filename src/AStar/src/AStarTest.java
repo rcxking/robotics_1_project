@@ -96,7 +96,13 @@ public class AStarTest {
 		
 		// Run the A* Algorithm:
 		AStar aStar = new AStar(realMap);
-		aStar.AStarAlgorithm();
+		int[][] solution = aStar.AStarAlgorithm();
+		
+		System.out.println("Solution is (in (row, col) format): ");
+		for(int i = 0; i < solution.length; i++) {
+			System.out.println("row: " + solution[i][0] + " col: " + solution[i][1]);
+			
+		} // End for
 		
 		System.out.println("A* Algorithm Completed!");
 	} // End function main()

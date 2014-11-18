@@ -6,7 +6,7 @@
  * CSCI-4480
  * 11/17/14
  * 
- * Last Updated: 11/17/14 - 9:11 PM
+ * Last Updated: 11/18/14 - 1:46 PM
  */
 
 import java.util.Vector;
@@ -41,7 +41,7 @@ public class ArrayToVector {
 		
 	} // End function convertArray()
 	
-	private String[][] getStringArray() {
+	public String[][] getStringArray() {
 		return stringArray_;
 	} // End function getStringArray()
 	
