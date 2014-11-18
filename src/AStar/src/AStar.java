@@ -431,11 +431,16 @@ public class AStar {
 			// Find all possible moves that we can make:
 			Vector<Vector<Vector<String>>> possiblemoves = possibleMoves(nextState);
 			
-			
+		
 			// For each possible move, create and add a new state to the priority queue:
 			for(int i = 0; i < possiblemoves.size(); i++) {
 				
-				Vector<Vector<Vector<String>>> stepsToHere = nextState.getStepsToState();
+				Vector<Vector<Vector<String>>> stepsToHere =  new Vector<Vector<Vector<String>>>(); //nextState.getStepsToState();
+				
+				for(int j = 0; j < nextState.getStepsToState().size(); j++) {
+					stepsToHere.addElement(nextState.getStepsToState().get(j));
+				} // End for
+				
 				stepsToHere.addElement(possiblemoves.get(i));
 				
 				State newState = new State(possiblemoves.get(i), nextState.getNumMoves() + 1, 
@@ -445,6 +450,7 @@ public class AStar {
 					pq.add(newState);
 				}
 			} // End for
+			
 			
 			
 			if(pq.isEmpty()) {
