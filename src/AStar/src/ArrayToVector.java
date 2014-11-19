@@ -1,5 +1,5 @@
 /*
- * ArrayToVector.java - Class that converts a Java String Array to
+ * ArrayToVector.java - Class that converts a Java Character Array to
  * a Java Vector object.
  * 
  * Bryant Pong
@@ -14,21 +14,21 @@ import java.util.Vector;
 public class ArrayToVector {
 
 	// Private Member Variables
-	private String[][] stringArray_;
+	private Character[][] stringArray_;
 	
 	// ArrayToVector Constructor
-	public ArrayToVector(String[][] stringArray) {
+	public ArrayToVector(Character[][] stringArray) {
 		stringArray_ = stringArray;
 	} // End Constructor ArrayToVector()
 	
 	// This function converts the stringArray_ into a 2D Vector:
-	public Vector<Vector<String>> convertArray() {
+	public Vector<Vector<Character>> convertArray() {
 		
-		Vector<Vector<String>> temp = new Vector<Vector<String>>();
+		Vector<Vector<Character>> temp = new Vector<Vector<Character>>();
 		
 		for(int i = 0; i < stringArray_.length; i++) {
 			
-			Vector<String> nextRow = new Vector<String>();
+			Vector<Character> nextRow = new Vector<Character>();
 			
 			for(int j = 0; j < stringArray_[i].length; j++) {
 				nextRow.addElement(stringArray_[i][j]);
@@ -41,7 +41,7 @@ public class ArrayToVector {
 		
 	} // End function convertArray()
 	
-	public String[][] getStringArray() {
+	public Character[][] getStringArray() {
 		return stringArray_;
 	} // End function getStringArray()
 	
