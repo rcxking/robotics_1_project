@@ -42,38 +42,38 @@ public class AStarTest {
 		 */
 		
 		// Representation of the map:
-		Vector<Vector<Character>> map = new Vector<Vector<Character>>(4);
-		Vector<Character> row1 = new Vector<Character>(6);
-		row1.addElement('S');
-		row1.addElement('X');
-		row1.addElement('X');
-		row1.addElement('0');
-		row1.addElement('0');
-		row1.addElement('X');
+		Vector<Vector<String>> map = new Vector<Vector<String>>(4);
+		Vector<String> row1 = new Vector<String>(6);
+		row1.addElement("S");
+		row1.addElement("X");
+		row1.addElement("X");
+		row1.addElement("0");
+		row1.addElement("0");
+		row1.addElement("X");
 		
-		Vector<Character> row2 = new Vector<Character>(6);
-		row2.addElement('0');
-		row2.addElement('0');
-		row2.addElement('0');
-		row2.addElement('0');
-		row2.addElement('0');
-		row2.addElement('X');
+		Vector<String> row2 = new Vector<String>(6);
+		row2.addElement("0");
+		row2.addElement("0");
+		row2.addElement("0");
+		row2.addElement("0");
+		row2.addElement("0");
+		row2.addElement("X");
 		
-		Vector<Character> row3 = new Vector<Character>(6);
-		row3.addElement('0');
-		row3.addElement('0');
-		row3.addElement('0');
-		row3.addElement('X');
-		row3.addElement('0');
-		row3.addElement('0');
+		Vector<String> row3 = new Vector<String>(6);
+		row3.addElement("0");
+		row3.addElement("0");
+		row3.addElement("0");
+		row3.addElement("X");
+		row3.addElement("0");
+		row3.addElement("0");
 		
-		Vector<Character> row4 = new Vector<Character>(6);
-		row4.addElement('0');
-		row4.addElement('X');
-		row4.addElement('0');
-		row4.addElement('X');
-		row4.addElement('0');
-		row4.addElement('E');
+		Vector<String> row4 = new Vector<String>(6);
+		row4.addElement("0");
+		row4.addElement("X");
+		row4.addElement("0");
+		row4.addElement("X");
+		row4.addElement("0");
+		row4.addElement("E");
 		
 		map.addElement(row1);
 		map.addElement(row2);
@@ -83,20 +83,19 @@ public class AStarTest {
 		//System.out.println("The current map is: ");
 		//printCurrentState(map);
 		
-		Character[][] newMap = {
-				{'S', '0', '0'},
-				{'0', 'X', '0'},
-				{'0', '0', 'E'}
+		String[][] newMap = {
+				{"S", "0", "0"},
+				{"0", "X", "0"},
+				{"0", "0", "E"}
 		};
 		
 		ArrayToVector atv = new ArrayToVector(newMap);
-		Vector<Vector<Character>> realMap = atv.convertArray();
+		Vector<Vector<String>> realMap = atv.convertArray();
 		System.out.println("realMap is: " + realMap);
 	
 		
 		// Run the A* Algorithm:
 		AStar aStar = new AStar(realMap);
-		
 		int[][] solution = aStar.AStarAlgorithm();
 		
 		System.out.println("Solution is (in (row, col) format): ");

@@ -6,13 +6,13 @@ X = Obstacle at Coordinate
 E = Ending Point
 0 (Zero) = Free Space
 
-javaS = java.lang.Character('S');
-javaX = java.lang.Character('X');
-javaE = java.lang.Character('E');
-java0 = java.lang.Character('0');
+javaS = java.lang.String('S');
+javaX = java.lang.String('X');
+javaE = java.lang.String('E');
+java0 = java.lang.String('0');
 
 2) Create a 2-Dimensional Java Character Array to represent the map:
-map = javaArray('java.lang.Character', 3, 3);
+map = javaArray('java.lang.String', 3, 3);
 
 3) Populate the map with the desired values.
 
