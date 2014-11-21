@@ -1,18 +1,18 @@
 To use the AStar Classes in MATLAB:
 
-1) Define the following Java String objects:
+1) Define the following Java Character objects:
 S = Starting Point
 X = Obstacle at Coordinate
 E = Ending Point
 0 (Zero) = Free Space
 
-javaS = java.lang.String('S');
-javaX = java.lang.String('X');
-javaE = java.lang.String('E');
-java0 = java.lang.String('0');
+javaS = java.lang.Character('S');
+javaX = java.lang.Character('X');
+javaE = java.lang.Character('E');
+java0 = java.lang.Character('0');
 
-2) Create a 2-Dimensional Java String Array to represent the map:
-map = javaArray('java.lang.String', 3, 3);
+2) Create a 2-Dimensional Java Character Array to represent the map:
+map = javaArray('java.lang.Character', 3, 3);
 
 3) Populate the map with the desired values.
 
@@ -37,7 +37,7 @@ map(3, 2) = java0;
 map(3, 3) = javaE;
 
 4) The A* object requires that the map be represented as a 2D java.util.Vector object.
-I wrote an ArrayToVector class that converts a 2D String Array to a 2D String Vector.
+I wrote an ArrayToVector class that converts a 2D Character Array to a 2D Character Vector.
 
 atv = ArrayToVector(map);
 
