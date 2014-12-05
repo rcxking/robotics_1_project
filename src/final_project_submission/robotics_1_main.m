@@ -9,7 +9,7 @@ Sean Bayman
 CSCI-4480
 11/21/14
 
-Last Updated: 12/2/14 - 4:31 PM
+Last Updated: 12/5/14 - 1:44 PM
 %}
 
 % Clear the screen:
@@ -22,7 +22,7 @@ clc;
 % END STEP 1
 
 % Add the Java Path for the A* Classes:
-javaaddpath('C:\Users\pongb\Documents\robotics_1_project\src\AStar\src');
+javaaddpath('D:\final_project_submission\astar');
 
 % Create the Java String Variables needed for the map:
 javaE = java.lang.String('E'); % Denotes the ending point
@@ -34,7 +34,7 @@ java0 = java.lang.String('0'); % Denotes a free space that can be moved to
 % starting and ending points of the robot:
 [obs, start, stop] = mapGeneration(imread('2014-12-02 16.07.23.jpg'));
 
-imshow(obs)
+%imshow(obs)
 
 smallSize = [10 10];
 
@@ -49,7 +49,7 @@ disp(startSmall);
 disp('stopSmall: ');
 disp(stopSmall);
 
-pause;
+%pause;
 map = convertImageToArray(obsSmall, startSmall(1), startSmall(2), stopSmall(1), stopSmall(2));
 atv = ArrayToVector(map);
 realmap = atv.convertArray();
@@ -57,7 +57,7 @@ realmap = atv.convertArray();
 disp('realmap: ');
 disp(realmap);
 
-pause;
+%pause;
 
 astar = AStar(realmap);
 path = astar.AStarAlgorithm();
@@ -76,6 +76,25 @@ end
 disp('1-indexed path: ');
 disp(path);
 
+% Point Locations for Reference
+% Coordinate bounds (X, Y, Z in world frame)
+p0 = [-0.072;  0.06; 0];
+p1 = [-0.072; -0.06; 0];
+p2 = [-0.192; -0.06; 0];
+p3 = [-0.192;  0.06; 0];
+
+% Initialize the Phantom Omni
+omni = RobotRaconteur.Connect('tcp://127.0.0.1:5150/PhantomOmniSimulinkHost/PhantomOmni');
+
+
+% Move to each boundry point
+%{
+moveud(p0(1),p0(2),1);
+moveud(p1(1),p1(2),1);
+moveud(p2(1),p2(2),1);
+moveud(p3(1),p3(2),1);
+%}
+
 % Now iterate through the path and determine the actual workspace
 % coordinates the path coordinates correspond to.  The Omni will now draw
 % the path from the starting point to ending point.  Otherwise, display a
@@ -88,8 +107,19 @@ else
     
     scaledPoints = linearMap(path, -0.132, 0.060, 0.060);
     
+    pause;
+    
+    disp('NOW DRAWING OUT FINAL PATH');
+    
     % Now draw the path:
+    moveud(scaledPoints(1, 1), scaledPoints(1, 2));
+    pause;
     for i = 1:size(scaledPoints, 1)
-        
+        disp(['Now calling moveud to point #',num2str(i),': ',...
+              num2str(scaledPoints(i, 1)), ...
+              ', ', num2str(scaledPoints(i, 2))]);
+        moveud(scaledPoints(i, 1), scaledPoints(i, 2));
     end
+    
+    disp('DONE DRAWING PATH! :D');
 end

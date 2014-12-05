@@ -33,7 +33,7 @@ fg = fg .* ( abs(fg) > objTh );
 
 
 % Process the obstacle map
-binMap = fg(:,:,1) & ~fg(:,:,2) & ~fg(:,:,3) ;
+binMap = fg(:,:,1) & ~fg(:,:,3) ;
 bigMap = processImage(binMap,ceil(workingRes/erodeScale));
 %bigMap = processImage(leveled,obsTh,obsDir);
 %{
@@ -94,7 +94,9 @@ end
 
 %% Auxilary functions
 
-% Function to correct for persepective distortion
+% Function to correct for persepective distortion.
+% Adapted from Michael Chan's code available at
+% http://www.mathworks.com/matlabcentral/fileexchange/35531-perspective-control--correction
 function [ orthoImage ] = userAssisted( rawImage, resolution )
 
     fixed = [  0 1 ;  1 1 ;  1 0 ;  0 0 ] * resolution;
@@ -143,12 +145,17 @@ function [ orthoImage ] = userAssisted( rawImage, resolution )
     orthoImage = imtransform( rawImage, T, ...
                               'XData', [1 resolution], ...
                               'YData', [1 resolution]);
-    orthoImage = flipud( orthoImage );
+    orthoImage(:,:,1) = flipud( orthoImage(:,:,1) );
+    orthoImage(:,:,2) = flipud( orthoImage(:,:,2) );
+    orthoImage(:,:,3) = flipud( orthoImage(:,:,3) );
 
 end
 
 
 % Sparse recovery function for image
+% Wrapper for Robust PCA algorthm by Professor Yi Ma of the University of 
+% Illinois at Urbana-Champaign, downloaded from
+% http://perception.csl.illinois.edu/matrix-rank/sample_code.html
 function [ objectImage, bgImage, offset ] = rpca_sparseRecovery( image, lambda )%, svsToTrun )
 
     if nargin < 2
@@ -242,7 +249,7 @@ end
 
 
 function [ allChannels ] = colorToAll( color )
-    allChannels = double([color(:,:,1); color(:,:,3); color(:,:,3)]);
+    allChannels = double([color(:,:,1); color(:,:,2); color(:,:,3)]);
 end
 
 
