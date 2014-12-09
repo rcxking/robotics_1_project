@@ -18,7 +18,7 @@ omni = RobotRaconteur.Connect('tcp://127.0.0.1:5150/PhantomOmniSimulinkHost/Phan
 % Joint 1 is the rotational base
 pGains = [500, 1800, 1350];
 iGains = [0, 3000, 3000];
-dGains = [20, 0.05, 0.2];
+dGains = [20, 5, 5]; %[20, 0.05, 0.2];
 
 % Start with known initial state every time
 %eIn = [0, 0.25, 0, pGains, dGains, iGains, zeros(1,4)]';

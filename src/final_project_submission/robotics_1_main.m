@@ -32,7 +32,7 @@ java0 = java.lang.String('0'); % Denotes a free space that can be moved to
 
 % Process the image and determine where the obstacles are as well as the
 % starting and ending points of the robot:
-[obs, start, stop] = mapGeneration(imread('2014-12-02 16.07.23.jpg'));
+[obs, start, stop] = mapGeneration(imread('Photo Dec 09, 3 59 49 PM.jpg'));
 
 %imshow(obs)
 
@@ -78,13 +78,12 @@ disp(path);
 
 % Point Locations for Reference
 % Coordinate bounds (X, Y, Z in world frame)
-p0 = [-0.072;  0.06; 0];
-p1 = [-0.072; -0.06; 0];
-p2 = [-0.192; -0.06; 0];
-p3 = [-0.192;  0.06; 0];
+C = -0.132; x = 0.03; y = 0.055;
+p0 = [C+x;  y; 0];
+p1 = [C+x; -y; 0];
+p2 = [C-x; -y; 0];
+p3 = [C-x;  y; 0];
 
-% Initialize the Phantom Omni
-omni = RobotRaconteur.Connect('tcp://127.0.0.1:5150/PhantomOmniSimulinkHost/PhantomOmni');
 
 
 % Move to each boundry point
@@ -105,9 +104,13 @@ else
     % Iterate through the path, and scale all points to robot workspace
     % coordinates.
     
-    scaledPoints = linearMap(path, -0.132, 0.060, 0.060);
+    scaledPoints = linearMap(path, C, x, y);
     
     pause;
+
+    % Initialize the Phantom Omni
+omni = RobotRaconteur.Connect('tcp://127.0.0.1:5150/PhantomOmniSimulinkHost/PhantomOmni');
+
     
     disp('NOW DRAWING OUT FINAL PATH');
     

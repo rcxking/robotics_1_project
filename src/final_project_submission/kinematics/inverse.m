@@ -47,6 +47,6 @@ end
 theta = theta(1:3).';
 
 % Add additional angle offsets
-theta(2) = theta(2) + 0.247;
+%theta(2) = theta(2) + 0.247;
 
 end

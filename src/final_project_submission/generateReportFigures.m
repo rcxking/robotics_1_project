@@ -3,6 +3,7 @@ function [obsMap, startPos, stopPos, bigMap] = ...
 % MAPGENERATION Only camerageImage is required, the rest are optional.
 
 erodeScale = 250;
+count = 1; % for producing images
 
 if nargin < 5
     objTh = 51;
@@ -18,11 +19,15 @@ if nargin < 5
 end
 
 ortho = userAssisted(cameraImage,workingRes) ;
+imwrite(ortho,[num2str(count),'_ortho.jpg']); count = count+1;
 
 
 % Using sparse recovery to separate foreground objects from background and
 % lighting effects:
-[fg, ~, off] = rpca_sparseRecovery(ortho, 2/workingRes);
+[fg, bg, off] = rpca_sparseRecovery(ortho, 2/workingRes);
+imwrite(fg,[num2str(count),'_fg.jpg']); count = count+1;
+imwrite(bg,[num2str(count),'_bg.jpg']); count = count+1;
+clear bg;
 % Low pass filter the image
 fg = imgLPF(fg, N);
 
@@ -30,7 +35,8 @@ fg = imgLPF(fg, N);
 fg = double(fg) + double(off);
 fg = fg .* ( abs(fg) > objTh );
 % figure(); imshow(uint8(fg-off));
-
+imwrite(uint8(fg-off),[num2str(count),'_thresholded.png']); count = count+1;
+off
 
 % Process the obstacle map
 binMap = fg(:,:,1) & ~fg(:,:,3) ;
@@ -41,6 +47,10 @@ figure(2);
 imshowpair(ortho,bigMap,'montage')
 title('Original image and full-resolution obstacle map');
 %}
+bS(:,:,1) = 255 * (0 == bigMap);
+bS(:,:,2) = 255 * (0 == bigMap);
+bS(:,:,3) = 255 * (0 == bigMap) + bigMap;
+imwrite(bS,[num2str(count),'_bigMap.png']); count = count+1;
 clear binMap;
 
 
@@ -67,6 +77,10 @@ figure(4);
 imshow(start);
 title(['Start position: ',num2str(startx),', ',num2str(starty)]);
 %}
+bS(:,:,1) = 255 * (0 == bigStart);
+bS(:,:,3) = 255 * (0 == bigStart);
+bS(:,:,2) = 255 * (0 == bigStart) + bigStart;
+imwrite(bS,[num2str(count),'_bigStart.png']); count = count+1;
 clear binStart bigStart start;
 
 binStop = ~fg(:,:,1) & fg(:,:,2) & fg(:,:,3) ;
@@ -79,6 +93,10 @@ figure(5);
 imshow(stop);
 title(['Stop Position: ',num2str(stopx),', ',num2str(stopy)]);
 %}
+bS(:,:,2) = 255 * (0 == bigStop);
+bS(:,:,3) = 255 * (0 == bigStop);
+bS(:,:,1) = 255 * (0 == bigStop) + bigStop;
+imwrite(bS,[num2str(count),'_bigStop.png']); count = count+1;
 clear binStop bigStop stop;
 
 

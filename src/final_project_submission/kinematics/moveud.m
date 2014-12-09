@@ -3,8 +3,8 @@ function dummy = moveud(x,y,lift)
 %  Robotics I Project
 %  Sean Bayman, Matt Corsaro, Bryant Pong
 %% Constant heights, can be editted
-zup = 0.05;
-zdown = -0.025;
+zup = 0.06;
+zdown = -0.00;
 
 %% Optional "lift" parameter: set for lift, clear for no lift
 %      Default: no lift
