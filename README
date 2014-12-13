@@ -1,0 +1,34 @@
+Robotics 1 Project
+==================
+
+Team members:
+
+Bryant Pong
+Matt Corsaro
+Sean Bayman
+
+
+Term Project for Rensselaer Polytechnic Institute's Robotics 1 Class.
+
+Our project is Path Planning with the Phantom Omni Robots.
+
+Our code is stored in the "src" folder. 
+
+Software Prerequisites:
+-----------------------
+Since our A* Algorithm is written in Java, you will need the Java Development
+Kit corresponding to the Java version used in the JEC lab computers.  As of
+this writing, the JDK used is Java 6 32-Bit.    
+
+To compile the A* code, using Command Prompt change directories into the 
+"src/astar" folder and execute the following command:
+
+javac *
+
+This command will result in a .class file for each Java file.
+ 
+Files
+-----
+The main file to run is "robotics_1_main.m".
+
+The    

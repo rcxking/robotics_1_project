@@ -5,7 +5,7 @@
  *  CSCI-4480
  *  11/10/14
  *  
- *  Last Updated: 11/11/14 - 7:45 PM
+ *  Last Updated: 12/12/14 - 4:39 PM
  */
 import java.util.*;
 
@@ -27,11 +27,8 @@ public class State {
 	public State(Vector<Vector<String>> current, int numMoves, 
 				 Vector<Vector<String>> previous,
 				 Vector<Vector<Vector<String>>> stepsToState) {
-		//current_ = current;
+
 		numMoves_ = numMoves;
-		//previous_ = previous;
-		//stepsToState_ = stepsToState;
-		
 		current_ = new Vector<Vector<String>>();
 		previous_ = new Vector<Vector<String>>();
 		stepsToState_ = new Vector<Vector<Vector<String>>>();
@@ -43,8 +40,6 @@ public class State {
 			for(int j = 0; j < current.get(i).size(); j++) {
 				temp.add(current.get(i).get(j));
 			} // End for
-			
-			System.out.println("temp is: " + temp);
 			
 			current_.addElement(temp);
 		} // End for
@@ -78,24 +73,21 @@ public class State {
 			stepsToState_.addElement(temp);
 		} // End for
 		
-		System.out.println("End of State Constructor.  Variables initialized to: ");
-		System.out.println("current_:" + getCurrentState());
-		
 	} // End Constructor State()
 	
 	public int getNumMoves() {
 		return numMoves_;
-	}
+	} // End function getNumMoves()
 	
 	public Vector<Vector<String>> getCurrentState() {
 		return current_;
-	}
+	} // End function getCurrentState()
 	
 	public Vector<Vector<String>> getPrevious() {
 		return previous_;
-	}
+	} // End function getPrevious()
 	
 	public Vector<Vector<Vector<String>>> getStepsToState() {
 		return stepsToState_;
-	}
+	} // End function getStepsToState()
 } // End class State.java
