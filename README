@@ -31,4 +31,15 @@ Files
 -----
 The main file to run is "robotics_1_main.m".
 
-The    
+The file "DrawCorners.m" is run first to draw the workspace markings on 
+the paper to show the boundaries of the map.
+
+The A* algorithm is stored in the "astar" folder.
+
+Our Forward and Inverse Kinematics implementation is stored in the 
+"kinematics" folder.
+
+The image processing algorithm/map generation is stored in "mapGeneration.m"
+as well as in the "inexact_alm_rpca" folder.
+
+
